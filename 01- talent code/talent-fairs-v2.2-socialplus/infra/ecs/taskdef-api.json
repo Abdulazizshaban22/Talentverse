@@ -1,0 +1,20 @@
+{
+  "family": "talent-api",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "512",
+  "containerDefinitions": [
+    {
+      "name": "api",
+      "image": "<IMAGE>",
+      "portMappings": [{ "containerPort": 4000, "protocol": "tcp" }],
+      "essential": true,
+      "environment": [
+        { "name": "DATABASE_URL", "value": "postgresql://..." },
+        { "name": "KEYCLOAK_ISSUER", "value": "https://..." },
+        { "name": "KEYCLOAK_JWKS_URL", "value": "https://.../certs" }
+      ]
+    }
+  ]
+}

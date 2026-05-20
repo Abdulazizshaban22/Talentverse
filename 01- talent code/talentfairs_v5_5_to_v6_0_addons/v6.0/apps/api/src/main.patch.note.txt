@@ -1,0 +1,3 @@
+أضف في apps/api/src/main.ts قبل الراوترات:
+  import { tenantFromHost } from './tenant_middleware.js'
+  app.use(tenantFromHost)

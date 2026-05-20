@@ -1,0 +1,22 @@
+
+services:
+  api:
+    build: ./api
+    ports: ["4000:4000"]
+    environment:
+      - PORT=4000
+      - OPENSEARCH_NODE=http://opensearch:9200
+      - NEXT_PUBLIC_API_BASE=http://localhost:4000
+  web:
+    build: ./web
+    ports: ["3000:3000"]
+    environment:
+      - PORT=3000
+      - NEXT_PUBLIC_API_BASE=http://localhost:4000
+  opensearch:
+    image: opensearchproject/opensearch:2.13.0
+    environment:
+      - discovery.type=single-node
+      - plugins.security.disabled=true
+      - OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m
+    ports: ["9200:9200"]

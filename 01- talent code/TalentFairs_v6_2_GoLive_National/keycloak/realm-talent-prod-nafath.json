@@ -1,0 +1,59 @@
+{
+  "realm": "talent-prod",
+  "enabled": true,
+  "identityProviders": [
+    {
+      "alias": "nafath",
+      "providerId": "oidc",
+      "enabled": true,
+      "firstBrokerLoginFlowAlias": "first broker login",
+      "config": {
+        "issuer": "https://<NAFATH_ISSUER>",
+        "authorizationUrl": "https://<NAFATH_AUTH_URL>/oauth2/authorize",
+        "tokenUrl": "https://<NAFATH_TOKEN_URL>/oauth2/token",
+        "userInfoUrl": "https://<NAFATH_USERINFO_URL>/oauth2/userinfo",
+        "jwksUrl": "https://<NAFATH_ISSUER>/.well-known/jwks.json",
+        "defaultScope": "openid profile email",
+        "clientId": "${env.NAFATH_CLIENT_ID}",
+        "clientSecret": "${env.NAFATH_CLIENT_SECRET}",
+        "useJwksUrl": "true",
+        "validateSignature": "true",
+        "backchannelSupported": "true",
+        "syncMode": "IMPORT"
+      }
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "talent-web",
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "baseUrl": "/",
+      "redirectUris": [
+        "https://app.talentfairs.sa/*",
+        "http://localhost:3000/*"
+      ],
+      "webOrigins": [
+        "https://app.talentfairs.sa",
+        "http://localhost:3000"
+      ]
+    },
+    {
+      "clientId": "talent-api",
+      "publicClient": false,
+      "serviceAccountsEnabled": true
+    },
+    {
+      "clientId": "talent-mobile",
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "redirectUris": [
+        "com.talentfairs.app://cb",
+        "exp://*"
+      ],
+      "webOrigins": [
+        "*"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+export default function Market(){return <main style={{padding:24}}><h1>Talent Market</h1></main>}

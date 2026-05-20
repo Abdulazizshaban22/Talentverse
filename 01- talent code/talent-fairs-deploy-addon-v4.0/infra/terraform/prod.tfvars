@@ -1,0 +1,5 @@
+project = "talent-fairs"
+region  = "us-east-1"
+domain_name = "talent.example.com"
+alb_secret_header_name  = "X-ALB-Secret"
+alb_secret_header_value = "PLEASE_CHANGE_THIS_VALUE"

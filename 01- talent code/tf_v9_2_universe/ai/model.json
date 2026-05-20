@@ -1,0 +1,7 @@
+{
+  "type": "linear",
+  "weights": {
+    "text_bm25": 1.0,
+    "graph_pr": 1.0
+  }
+}

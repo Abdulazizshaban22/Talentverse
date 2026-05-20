@@ -1,0 +1,25 @@
+{
+  "title": "Realtime \u2014 Socket.IO/SSE",
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Messages",
+      "targets": [
+        {
+          "expr": "tf_messages_total"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Redemptions",
+      "targets": [
+        {
+          "expr": "tf_rewards_redeemed_total"
+        }
+      ]
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 38
+}

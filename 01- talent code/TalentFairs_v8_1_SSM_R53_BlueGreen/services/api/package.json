@@ -1,0 +1,14 @@
+
+{
+  "name": "talentfairs-api",
+  "version": "8.1.0",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.19.2",
+    "@opensearch-project/opensearch": "^2.12.0"
+  },
+  "scripts": {
+    "start": "node src/main.js",
+    "bootstrap:os": "node src/opensearch_bootstrap.js"
+  }
+}

@@ -1,0 +1,24 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-talentmatch
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: ai-talentmatch } }
+  template:
+    metadata: { labels: { app: ai-talentmatch } }
+    spec:
+      containers:
+        - name: app
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports: [{containerPort: 8010}]
+---
+apiVersion: v1
+kind: Service
+metadata: { name: ai-talentmatch }
+spec:
+  selector: { app: ai-talentmatch }
+  ports:
+    - port: 80
+      targetPort: {{ .Values.service.port }}

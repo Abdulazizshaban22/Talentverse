@@ -1,0 +1,1 @@
+Place ALB in private subnets; expose via CloudFront VPC Origins/OAC.

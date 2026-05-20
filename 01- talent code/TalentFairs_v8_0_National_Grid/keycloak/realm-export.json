@@ -1,0 +1,32 @@
+{
+  "realm": "talentfairs",
+  "roles": {
+    "realm": [
+      {
+        "name": "Admin"
+      },
+      {
+        "name": "Teacher"
+      },
+      {
+        "name": "Guardian"
+      },
+      {
+        "name": "Student"
+      },
+      {
+        "name": "Employer"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "web-app",
+      "protocol": "openid-connect",
+      "redirectUris": [
+        "https://app.talentfairs.sa/*"
+      ],
+      "publicClient": true
+    }
+  ]
+}

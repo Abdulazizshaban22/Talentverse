@@ -1,0 +1,37 @@
+{
+  "realm": "talentverse",
+  "enabled": true,
+  "clients": [
+    {
+      "clientId": "web",
+      "redirectUris": [
+        "http://localhost:3000/*"
+      ],
+      "publicClient": true
+    },
+    {
+      "clientId": "admin",
+      "redirectUris": [
+        "http://localhost:3001/*"
+      ],
+      "publicClient": true
+    },
+    {
+      "clientId": "api-gateway",
+      "serviceAccountsEnabled": true
+    }
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "talent:user"
+      },
+      {
+        "name": "gov:analyst"
+      },
+      {
+        "name": "admin"
+      }
+    ]
+  }
+}

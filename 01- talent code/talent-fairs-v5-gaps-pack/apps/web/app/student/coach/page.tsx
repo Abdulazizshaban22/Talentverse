@@ -1,0 +1,1 @@
+export default function Coach(){return <main style={{padding:24}}><h1>Growth Coach</h1></main>}

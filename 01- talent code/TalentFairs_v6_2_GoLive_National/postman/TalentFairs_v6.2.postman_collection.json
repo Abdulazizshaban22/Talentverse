@@ -1,0 +1,86 @@
+{
+  "info": {
+    "name": "TalentFairs v6.2 National",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "API",
+      "value": "http://localhost:4000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "url": "{{API}}/health"
+      }
+    },
+    {
+      "name": "AI WhatIf",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"ltr_weight\": 0.6, \"graph_weight\": 0.4, \"sample\": [{\"id\": \"c1\", \"ltr\": 0.72, \"graph\": 0.3}, {\"id\": \"c2\", \"ltr\": 0.6, \"graph\": 0.55}]}"
+        },
+        "url": "{{API}}/ai/whatif"
+      }
+    },
+    {
+      "name": "Redact",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"text\": \"user@example.com +9665xxxxxxx\"}"
+        },
+        "url": "{{API}}/privacy/redact"
+      }
+    },
+    {
+      "name": "Loyalty Balance",
+      "request": {
+        "method": "GET",
+        "url": "{{API}}/loyalty/balance?userId=demo"
+      }
+    },
+    {
+      "name": "EduTwin Engagement",
+      "request": {
+        "method": "GET",
+        "url": "{{API}}/edutwin/metrics/engagement?learnerId=demo"
+      }
+    },
+    {
+      "name": "ZATCA Sign",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"digestHex\": \"AABBCC\"}"
+        },
+        "url": "{{API}}/compliance/zatca/sign"
+      }
+    }
+  ]
+}

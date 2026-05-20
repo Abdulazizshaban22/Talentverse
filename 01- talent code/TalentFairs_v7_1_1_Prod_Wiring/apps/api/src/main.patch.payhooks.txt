@@ -1,0 +1,7 @@
+في ملف main.js للـAPI أضف:
+  import { payhooks } from './payments_webhooks.js'
+  app.use('/webhooks', payhooks)
+
+ثم سجّل عناوين الويبهوك الفعلية لدى المزودين:
+  - Tap → https://api.<your-domain>/webhooks/tap
+  - HyperPay (OPPWA) → https://api.<your-domain>/webhooks/hyperpay

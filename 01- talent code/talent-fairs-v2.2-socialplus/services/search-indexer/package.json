@@ -1,0 +1,14 @@
+{
+  "name": "@talent/search-indexer",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "init": "node src/init.js"
+  },
+  "dependencies": {
+    "@opensearch-project/opensearch": "^2.8.0",
+    "undici": "^6.19.8"
+  }
+}

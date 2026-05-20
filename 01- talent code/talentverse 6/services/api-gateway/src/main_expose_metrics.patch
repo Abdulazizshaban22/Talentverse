@@ -1,0 +1,1 @@
+// Add in your Nest bootstrap: server.get('/metrics', metricsHandler) from './metrics'

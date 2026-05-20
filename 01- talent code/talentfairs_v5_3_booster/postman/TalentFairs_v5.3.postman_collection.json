@@ -1,0 +1,121 @@
+{
+  "info": {
+    "name": "TalentFairs v5.3",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "url": "{{API}}/health"
+      }
+    },
+    {
+      "name": "WhatIf",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"ltr_weight\": 0.6, \"graph_weight\": 0.4, \"sample\": [{\"id\": \"c1\", \"ltr\": 0.72, \"graph\": 0.3}, {\"id\": \"c2\", \"ltr\": 0.6, \"graph\": 0.55}]}"
+        },
+        "url": "{{API}}/ai/whatif"
+      }
+    },
+    {
+      "name": "Redact",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"text\": \"user@example.com +9665xxxxxxx 1xxxxxxxxx\"}"
+        },
+        "url": "{{API}}/privacy/redact"
+      }
+    },
+    {
+      "name": "HyperPay Verify",
+      "request": {
+        "method": "GET",
+        "url": "{{API}}/payments/hyperpay/verify?id=CHK_ID&entityId=ENTITY"
+      }
+    },
+    {
+      "name": "Tap Webhook (sample)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "tap-signature",
+            "value": "<calculated>"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"type\": \"charge.succeeded\", \"id\": \"evt_123\"}"
+        },
+        "url": "{{API}}/payments/tap/webhook"
+      }
+    },
+    {
+      "name": "ZATCA Sign",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"digestHex\": \"AABBCC\"}"
+        },
+        "url": "{{API}}/compliance/zatca/sign"
+      }
+    },
+    {
+      "name": "K12 Today",
+      "request": {
+        "method": "GET",
+        "url": "{{API}}/k12/coach/today"
+      }
+    },
+    {
+      "name": "Trust Reports",
+      "request": {
+        "method": "GET",
+        "url": "{{API}}/trust/reports"
+      }
+    },
+    {
+      "name": "OneRoster Upload (info)",
+      "request": {
+        "method": "POST",
+        "url": "{{API}}/school/oneroster/upload"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "API",
+      "value": "http://localhost:4000"
+    }
+  ]
+}

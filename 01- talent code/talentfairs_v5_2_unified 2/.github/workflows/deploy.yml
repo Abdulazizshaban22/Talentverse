@@ -1,0 +1,28 @@
+name: Deploy Infra & Images
+on: [workflow_dispatch]
+permissions: { id-token: write, contents: read }
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - uses: aws-actions/amazon-ecr-login@v2
+      - name: Build & Push API
+        run: |
+          docker build -t $ECR_API_REPO -f apps/api/Dockerfile .
+          docker push $ECR_API_REPO:latest
+        env: { ECR_API_REPO: ${{ secrets.ECR_API_REPO }} }
+      - name: Build & Push Web
+        run: |
+          docker build -t $ECR_WEB_REPO -f apps/web/Dockerfile .
+          docker push $ECR_WEB_REPO:latest
+        env: { ECR_WEB_REPO: ${{ secrets.ECR_WEB_REPO }} }
+      - name: Terraform Apply
+        working-directory: infra/terraform
+        run: |
+          terraform init -input=false
+          terraform apply -auto-approve -input=false             -var="project=${{ secrets.PROJECT }}"             -var="region=${{ secrets.AWS_REGION }}"             -var="domain=${{ secrets.DOMAIN }}"             -var="api_domain=${{ secrets.API_DOMAIN }}"             -var="vpc_id=${{ secrets.VPC_ID }}"             -var='private_subnets=${{ secrets.PRIVATE_SUBNETS_JSON }}'             -var='public_subnets=${{ secrets.PUBLIC_SUBNETS_JSON }}'             -var="certificate_arn=${{ secrets.CF_CERT_ARN }}"             -var="ecr_api_repo=${{ secrets.ECR_API_REPO }}"             -var="ecr_web_repo=${{ secrets.ECR_WEB_REPO }}"

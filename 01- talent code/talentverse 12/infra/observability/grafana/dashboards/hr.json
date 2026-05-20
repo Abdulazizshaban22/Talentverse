@@ -1,0 +1,17 @@
+{
+  "title": "HR — Employees & Performance",
+  "panels": [
+    {
+      "type": "table",
+      "title": "Employees & Avg Performance per Region",
+      "targets": [
+        {
+          "rawSql": "SELECT e.region, COUNT(*) AS employees, ROUND(AVG(p.score)::numeric,2) AS avg_perf FROM hr_employee e LEFT JOIN hr_performance p ON p.employee_nid=e.national_id GROUP BY e.region ORDER BY e.region",
+          "format": "table"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 38,
+  "version": 1
+}

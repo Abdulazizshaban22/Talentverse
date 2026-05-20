@@ -1,0 +1,1 @@
+استخدم VPC Origins لـ ALB خاص، ثم import state إلى Terraform لاحقًا.

@@ -1,0 +1,114 @@
+{
+  "clientId": "api-gateway",
+  "authorizationSettings": {
+    "policyEnforcementMode": "ENFORCING",
+    "decisionStrategy": "UNANIMOUS",
+    "resources": [
+      {
+        "name": "institution",
+        "uris": [
+          "/v1/institutions/*"
+        ],
+        "scopes": [
+          {
+            "name": "read"
+          },
+          {
+            "name": "write"
+          }
+        ],
+        "attributes": {
+          "region": [
+            "*"
+          ],
+          "organization": [
+            "*"
+          ]
+        }
+      },
+      {
+        "name": "profile",
+        "uris": [
+          "/v1/profiles/*"
+        ],
+        "scopes": [
+          {
+            "name": "read"
+          },
+          {
+            "name": "write"
+          }
+        ],
+        "attributes": {
+          "region": [
+            "*"
+          ],
+          "organization": [
+            "*"
+          ]
+        }
+      }
+    ],
+    "scopes": [
+      {
+        "name": "read"
+      },
+      {
+        "name": "write"
+      }
+    ],
+    "policies": [
+      {
+        "name": "gov-analyst-role",
+        "type": "role",
+        "logic": "POSITIVE",
+        "decisionStrategy": "UNANIMOUS",
+        "config": {
+          "roles": "[{\"id\":\"gov:analyst\",\"required\":true}]"
+        }
+      },
+      {
+        "name": "region-match-policy",
+        "type": "js",
+        "logic": "POSITIVE",
+        "decisionStrategy": "UNANIMOUS",
+        "config": {
+          "code": "/* bundled by JAR */"
+        }
+      },
+      {
+        "name": "org-match-policy",
+        "type": "js",
+        "logic": "POSITIVE",
+        "decisionStrategy": "UNANIMOUS",
+        "config": {
+          "code": "/* bundled by JAR */"
+        }
+      }
+    ],
+    "permissions": [
+      {
+        "name": "institution:read:abac",
+        "type": "scope",
+        "logic": "POSITIVE",
+        "decisionStrategy": "UNANIMOUS",
+        "config": {
+          "resources": "[\"institution\"]",
+          "scopes": "[\"read\"]",
+          "applyPolicies": "[\"gov-analyst-role\",\"region-match-policy\",\"org-match-policy\"]"
+        }
+      },
+      {
+        "name": "profile:read:abac",
+        "type": "scope",
+        "logic": "POSITIVE",
+        "decisionStrategy": "UNANIMOUS",
+        "config": {
+          "resources": "[\"profile\"]",
+          "scopes": "[\"read\"]",
+          "applyPolicies": "[\"gov-analyst-role\",\"region-match-policy\"]"
+        }
+      }
+    ]
+  }
+}

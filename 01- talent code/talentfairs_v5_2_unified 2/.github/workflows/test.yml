@@ -1,0 +1,18 @@
+name: Test & Typecheck
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Install
+        working-directory: apps/api
+        run: npm i
+      - name: Typecheck
+        working-directory: apps/api
+        run: npx tsc -p tsconfig.json --noEmit
+      - name: Unit Tests
+        working-directory: apps/api
+        run: npx jest --passWithNoTests

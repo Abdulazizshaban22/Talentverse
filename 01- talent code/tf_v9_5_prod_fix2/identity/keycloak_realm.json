@@ -1,0 +1,41 @@
+{
+  "realm": "talentfairs",
+  "enabled": true,
+  "clients": [
+    {
+      "clientId": "web-app",
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "redirectUris": [
+        "https://app.talentfairs.sa/*",
+        "https://staging.talentfairs.sa/*",
+        "http://localhost:3000/*"
+      ],
+      "webOrigins": [
+        "*"
+      ],
+      "attributes": {
+        "pkce.code.challenge.method": "S256"
+      }
+    }
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "Admin"
+      },
+      {
+        "name": "Teacher"
+      },
+      {
+        "name": "Guardian"
+      },
+      {
+        "name": "Student"
+      },
+      {
+        "name": "Employer"
+      }
+    ]
+  }
+}

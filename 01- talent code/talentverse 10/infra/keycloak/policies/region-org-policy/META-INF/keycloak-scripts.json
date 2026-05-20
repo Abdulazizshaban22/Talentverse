@@ -1,0 +1,13 @@
+
+{
+  "policies": [
+    {
+      "name": "region-match-policy",
+      "fileName": "region-match-policy.js"
+    },
+    {
+      "name": "org-match-policy",
+      "fileName": "org-match-policy.js"
+    }
+  ]
+}

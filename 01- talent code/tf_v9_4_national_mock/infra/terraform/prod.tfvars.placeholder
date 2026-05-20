@@ -1,0 +1,6 @@
+
+region       = "me-central-1"     # اختر منطقة مناسبة
+root_domain  = "talentfairs.local"
+vpc_id       = "vpc-xxxxxxxx"
+subnets      = ["subnet-aaaa","subnet-bbbb"]
+# ملاحظة: CloudFront يحتاج شهادة ACM في us-east-1.

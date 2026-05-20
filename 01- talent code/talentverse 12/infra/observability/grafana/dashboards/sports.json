@@ -1,0 +1,17 @@
+{
+  "title": "Sports — Athletes by Region",
+  "panels": [
+    {
+      "type": "table",
+      "title": "Athletes per Region",
+      "targets": [
+        {
+          "rawSql": "SELECT region, COUNT(*) AS athletes FROM sport_athlete GROUP BY region ORDER BY region",
+          "format": "table"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 38,
+  "version": 1
+}

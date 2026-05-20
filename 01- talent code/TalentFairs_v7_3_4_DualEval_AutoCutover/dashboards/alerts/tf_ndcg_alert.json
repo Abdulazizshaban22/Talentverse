@@ -1,0 +1,96 @@
+{
+  "apiVersion": 1,
+  "groups": [
+    {
+      "name": "TalentFairs nDCG Alerts",
+      "folderUid": "talentfairs",
+      "interval": "1h",
+      "rules": [
+        {
+          "uid": "ndcg-shadow-better",
+          "title": "Shadow beats Prod (7d avg)",
+          "condition": "C",
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "OPENSEARCH_DS",
+              "model": {
+                "queryType": "lucene",
+                "query": "index:tf_metrics_ndcg AND model_alias:\"${domain}@prod\"",
+                "timeField": "@timestamp",
+                "bucketAggs": [
+                  {
+                    "type": "date_histogram",
+                    "field": "@timestamp",
+                    "settings": {
+                      "interval": "1d"
+                    }
+                  }
+                ],
+                "metrics": [
+                  {
+                    "type": "avg",
+                    "field": "ndcg_at_k"
+                  }
+                ]
+              },
+              "relativeTimeRange": {
+                "from": 604800,
+                "to": 0
+              }
+            },
+            {
+              "refId": "B",
+              "datasourceUid": "OPENSEARCH_DS",
+              "model": {
+                "queryType": "lucene",
+                "query": "index:tf_metrics_ndcg AND model_alias:\"${domain}@shadow\"",
+                "timeField": "@timestamp",
+                "bucketAggs": [
+                  {
+                    "type": "date_histogram",
+                    "field": "@timestamp",
+                    "settings": {
+                      "interval": "1d"
+                    }
+                  }
+                ],
+                "metrics": [
+                  {
+                    "type": "avg",
+                    "field": "ndcg_at_k"
+                  }
+                ]
+              },
+              "relativeTimeRange": {
+                "from": 604800,
+                "to": 0
+              }
+            },
+            {
+              "refId": "C",
+              "datasourceUid": "__expr__",
+              "model": {
+                "type": "reduce",
+                "expression": "avg($B) - avg($A)",
+                "reducer": "last",
+                "window": "7d"
+              }
+            }
+          ],
+          "noDataState": "OK",
+          "execErrState": "Error",
+          "for": "1h",
+          "annotations": {
+            "summary": "Shadow nDCG avg (7d) exceeds Prod avg (7d)"
+          },
+          "labels": {
+            "service": "talentfairs",
+            "metric": "ndcg"
+          },
+          "isPaused": false
+        }
+      ]
+    }
+  ]
+}

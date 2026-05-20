@@ -1,0 +1,43 @@
+{
+  "title": "Talent Fairs \u2014 Node/Express (v2.7)",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Messages total",
+      "targets": [
+        {
+          "expr": "tf_messages_total"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "ACL failures",
+      "targets": [
+        {
+          "expr": "tf_acl_auth_fail_total"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "HTTP Requests",
+      "targets": [
+        {
+          "expr": "http_request_duration_seconds_count"
+        }
+      ]
+    },
+    {
+      "type": "histogram",
+      "title": "HTTP Duration",
+      "targets": [
+        {
+          "expr": "http_request_duration_seconds_bucket"
+        }
+      ]
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 38
+}

@@ -1,0 +1,15 @@
+{
+  "@context": "https://purl.imsglobal.org/spec/ob/v2p1/context.json",
+  "type": "Assertion",
+  "id": "urn:uuid:ASSERTION_ID",
+  "recipient": {
+    "type": "email",
+    "hashed": false,
+    "identity": "student@example.com"
+  },
+  "badge": "https://issuer.example.org/badge-class/intro-ai",
+  "verification": {
+    "type": "HostedBadge"
+  },
+  "issuedOn": "2025-11-10T00:00:00Z"
+}

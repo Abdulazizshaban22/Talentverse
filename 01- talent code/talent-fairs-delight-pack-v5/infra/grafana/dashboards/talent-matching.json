@@ -1,0 +1,23 @@
+{
+  "title": "Talent Matching Overview",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Total Matches",
+      "targets": [
+        {
+          "expr": "sum(talent_matches_total)"
+        }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Match Score (p95)",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(match_score_bucket[5m])) by (le))"
+        }
+      ]
+    }
+  ]
+}

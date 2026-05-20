@@ -1,0 +1,10 @@
+
+:root { --bg:#0b1020; --card:#11172c; --text:#e8efff; --muted:#9bb0d1; --brand:#2f7bff; }
+*{box-sizing:border-box}
+html[dir="rtl"]{font-family: system-ui, 'Segoe UI', 'Tajawal', sans-serif; background:var(--bg); color:var(--text)}
+a{color:var(--brand); text-decoration:none}
+nav{display:flex;gap:12px;padding:12px 0}
+.card{background:var(--card); padding:16px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.grid{display:grid; gap:16px; grid-template-columns: repeat(auto-fit, minmax(280px,1fr))}
+h1,h2,h3{margin:8px 0 12px}
+small, .muted{color:var(--muted)}

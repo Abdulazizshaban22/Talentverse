@@ -1,0 +1,22 @@
+[
+  {
+    "escoId": "skill/it/javascript",
+    "name": "JavaScript",
+    "kind": "skill"
+  },
+  {
+    "escoId": "skill/it/react",
+    "name": "React",
+    "kind": "skill"
+  },
+  {
+    "escoId": "skill/pm/project-management",
+    "name": "Project management",
+    "kind": "transversal"
+  },
+  {
+    "escoId": "skill/data/sql",
+    "name": "SQL",
+    "kind": "skill"
+  }
+]

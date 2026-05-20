@@ -1,0 +1,45 @@
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "ar_en_mix": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "arabic_normalization",
+            "arabic_stemmer"
+          ]
+        }
+      },
+      "filter": {
+        "arabic_stemmer": {
+          "type": "stemmer",
+          "language": "arabic"
+        }
+      }
+    },
+    "number_of_shards": 1,
+    "number_of_replicas": 0
+  },
+  "mappings": {
+    "properties": {
+      "id": {
+        "type": "keyword"
+      },
+      "authorId": {
+        "type": "keyword"
+      },
+      "text": {
+        "type": "text",
+        "analyzer": "ar_en_mix"
+      },
+      "skills": {
+        "type": "keyword"
+      },
+      "ts": {
+        "type": "date"
+      }
+    }
+  }
+}

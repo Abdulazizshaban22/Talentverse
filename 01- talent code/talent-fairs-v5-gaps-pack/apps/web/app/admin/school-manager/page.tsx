@@ -1,0 +1,1 @@
+export default function School(){return <main style={{padding:24}}><h1>School Manager (OneRoster)</h1></main>}

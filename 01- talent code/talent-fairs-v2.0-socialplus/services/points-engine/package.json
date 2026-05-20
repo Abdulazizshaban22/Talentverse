@@ -1,0 +1,14 @@
+{
+  "name": "@talent/points",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "fastify": "^4.27.0",
+    "ioredis": "^5.4.1"
+  }
+}

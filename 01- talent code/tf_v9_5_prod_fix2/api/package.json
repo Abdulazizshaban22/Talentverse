@@ -1,0 +1,26 @@
+{
+  "name": "talentfairs-api",
+  "version": "9.5.0",
+  "type": "module",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "body-parser": "^1.20.2",
+    "@opensearch-project/opensearch": "^2.12.0",
+    "neo4j-driver": "^5.22.1",
+    "multer": "^1.4.5-lts.1",
+    "uuid": "^9.0.1",
+    "csv-parse": "^5.5.6",
+    "crypto-js": "^4.2.0",
+    "socket.io": "^4.7.5",
+    "http": "^0.0.1-security",
+    "jsonwebtoken": "^9.0.2",
+    "jose": "^5.2.4",
+    "node-cron": "^3.0.3",
+    "helmet": "^7.1.0",
+    "morgan": "^1.10.0"
+  }
+}

@@ -1,0 +1,7 @@
+سجّل لدى مزوّد نفاذ (SDAIA) عنوان العودة (Redirect URI) التالي في إعدادات العميل لديهم:
+
+https://<KEYCLOAK_DOMAIN>/realms/<REALM>/broker/nafath/endpoint
+
+ثم في **Clients** لتطبيقك:
+Valid redirect URIs: https://<APP_DOMAIN>/*
+Web origins: https://<APP_DOMAIN>

@@ -1,0 +1,14 @@
+{
+  "name": "talent-fairs-v2",
+  "private": true,
+  "version": "2.2.0",
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "dev": "echo 'Use per-app scripts'",
+    "build": "echo build"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "prettier": "^3.2.5"
+  }
+}

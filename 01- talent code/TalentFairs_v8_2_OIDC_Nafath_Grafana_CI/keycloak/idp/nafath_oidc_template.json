@@ -1,0 +1,25 @@
+{
+  "alias": "nafath",
+  "providerId": "oidc",
+  "enabled": true,
+  "trustEmail": true,
+  "storeToken": true,
+  "addReadTokenRoleOnCreate": false,
+  "authenticateByDefault": false,
+  "firstBrokerLoginFlowAlias": "first broker login",
+  "config": {
+    "issuer": "https://<nafath-issuer.example.gov.sa>",
+    "authorizationUrl": "https://<nafath>/oauth2/authorize",
+    "tokenUrl": "https://<nafath>/oauth2/token",
+    "jwksUrl": "https://<nafath>/.well-known/jwks.json",
+    "userinfoUrl": "https://<nafath>/userinfo",
+    "clientId": "<client-id>",
+    "clientSecret": "<client-secret>",
+    "defaultScope": "openid profile email",
+    "backchannelSupported": "true",
+    "disableUserInfo": "false",
+    "loginHint": "true",
+    "prompt": "login",
+    "syncMode": "IMPORT"
+  }
+}

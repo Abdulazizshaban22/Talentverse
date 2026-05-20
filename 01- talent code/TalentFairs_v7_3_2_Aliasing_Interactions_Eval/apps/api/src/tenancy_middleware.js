@@ -1,0 +1,1 @@
+export function tenancy(req,_res,next){const t=(req.headers['x-tenant']||'').toString().trim();let tenant=t;if(!tenant){const h=(req.headers['host']||'').toString();if(h&&h.split('.').length>2){tenant=h.split('.')[0]}}req.tenantId=tenant||'public';next()}

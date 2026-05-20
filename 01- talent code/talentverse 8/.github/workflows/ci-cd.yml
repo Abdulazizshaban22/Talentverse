@@ -1,0 +1,62 @@
+name: ci-cd
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  REGISTRY: ${{ vars.ECR_REGISTRY }}
+  AWS_REGION: me-south-1
+
+jobs:
+  build-scan-push:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [api-gateway, ai-talentmatch, ai-cognitiveiq, ai-careerpath, challengehub, ingestion]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build & Push ${{ matrix.service }}
+        uses: docker/build-push-action@v5
+        with:
+          context: ./services/${{ matrix.service }}
+          push: true
+          tags: ${{ env.REGISTRY }}/talentverse/${{ matrix.service }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Trivy scan ${{ matrix.service }}
+        uses: aquasecurity/trivy-action@0.21.0
+        with:
+          image-ref: ${{ env.REGISTRY }}/talentverse/${{ matrix.service }}:latest
+          format: 'table'
+          severity: 'CRITICAL,HIGH'
+
+  sync-argocd:
+    needs: build-scan-push
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sync App-of-Apps
+        uses: omegion/argocd-actions@v1
+        with:
+          address: ${{ vars.ARGOCD_SERVER }}
+          token: ${{ secrets.ARGOCD_TOKEN }}
+          action: sync
+          appName: talentverse-apps

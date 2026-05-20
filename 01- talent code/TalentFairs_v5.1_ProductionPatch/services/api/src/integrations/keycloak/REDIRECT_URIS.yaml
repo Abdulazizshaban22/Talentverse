@@ -1,0 +1,19 @@
+# Keycloak Clients Redirect URIs (example)
+web:
+  clientId: talent-web
+  redirectUris:
+    - https://app.talentfairs.sa/*
+  webOrigins:
+    - https://app.talentfairs.sa
+mobile:
+  clientId: talent-mobile
+  redirectUris:
+    - exp://127.0.0.1:19000/--/cb
+    - com.talentfairs.app://cb
+  webOrigins: []
+admin:
+  clientId: talent-admin
+  redirectUris:
+    - https://admin.talentfairs.sa/*
+notes:
+  - اضمن تطابق redirect_uri تمامًا مع القيم المسجلة في Keycloak لتفادي Invalid parameter: redirect_uri.

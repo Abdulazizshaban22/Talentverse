@@ -1,0 +1,97 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: talent
+    ports: [ "5432:5432" ]
+    volumes: [ "db_data:/var/lib/postgresql/data" ]
+
+  redis:
+    image: redis:7
+    ports: [ "6379:6379" ]
+
+  keycloak-db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak
+    volumes: [ "kc_data:/var/lib/postgresql/data" ]
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0
+    command: ["start-dev"]
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: keycloak
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+    ports: [ "8080:8080" ]
+    depends_on: [ keycloak-db ]
+
+  api:
+    build: ../services/api
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/talent?schema=public
+      PORT_API: 4000
+      KEYCLOAK_JWKS_URL: http://keycloak:8080/realms/talent/protocol/openid-connect/certs
+      KEYCLOAK_ISSUER: http://keycloak:8080/realms/talent
+      REDIS_URL: redis://redis:6379
+      OPENSEARCH_URL: http://opensearch:9200
+      S3_BUCKET: ${S3_BUCKET}
+      AWS_REGION: ${AWS_REGION}
+      OS_POSTS_INDEX: posts-ar
+    ports: [ "4000:4000" ]
+    depends_on: [ db, opensearch ]
+
+  ai-core:
+    build: ../services/ai-core
+    command: uvicorn main:app --port 8000 --host 0.0.0.0
+    ports: [ "8000:8000" ]
+
+  ai-feed:
+    build: ../services/ai-feed
+    command: uvicorn main:app --port 8500 --host 0.0.0.0
+    ports: [ "8500:8500" ]
+
+  points-engine:
+    build: ../services/points-engine
+    environment:
+      REDIS_URL: redis://redis:6379
+      PORT_POINTS: 4100
+    ports: [ "4100:4100" ]
+    depends_on: [ redis ]
+
+  notifier:
+    build: ../services/notifier
+    environment:
+      RESEND_API_KEY: ${RESEND_API_KEY}
+      WHATSAPP_TOKEN: ${WHATSAPP_TOKEN}
+      WHATSAPP_PHONE_NUMBER_ID: ${WHATSAPP_PHONE_NUMBER_ID}
+    command: node src/server.js
+    ports: [ "4200:4200" ]
+
+  opensearch:
+    image: opensearchproject/opensearch:2.14.0
+    environment:
+      - discovery.type=single-node
+      - plugins.security.disabled=true
+      - bootstrap.memory_lock=true
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock: { soft: -1, hard: -1 }
+    ports: [ "9200:9200" ]
+
+  opensearch-dashboards:
+    image: opensearchproject/opensearch-dashboards:2.14.0
+    environment: [ "OPENSEARCH_HOSTS=http://opensearch:9200", "DISABLE_SECURITY_DASHBOARDS_PLUGIN=true" ]
+    ports: [ "5601:5601" ]
+    depends_on: [ opensearch ]
+
+volumes:
+  db_data: {}
+  kc_data: {}

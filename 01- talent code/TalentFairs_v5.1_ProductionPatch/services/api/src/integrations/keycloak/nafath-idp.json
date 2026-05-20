@@ -1,0 +1,25 @@
+{
+  "alias": "nafath",
+  "providerId": "oidc",
+  "enabled": true,
+  "updateProfileFirstLoginMode": "on",
+  "trustEmail": false,
+  "storeToken": true,
+  "addReadTokenRoleOnCreate": false,
+  "authenticateByDefault": false,
+  "linkOnly": false,
+  "firstBrokerLoginFlowAlias": "first broker login",
+  "config": {
+    "hideOnLoginPage": "true",
+    "clientId": "${NAFATH_CLIENT_ID}",
+    "clientSecret": "${NAFATH_CLIENT_SECRET}",
+    "issuer": "${NAFATH_ISSUER}",
+    "authorizationUrl": "${NAFATH_AUTH_URL}",
+    "tokenUrl": "${NAFATH_TOKEN_URL}",
+    "jwksUrl": "${NAFATH_JWKS_URL}",
+    "defaultScope": "openid profile",
+    "useJwksUrl": "true",
+    "backchannelSupported": "true",
+    "syncMode": "IMPORT"
+  }
+}

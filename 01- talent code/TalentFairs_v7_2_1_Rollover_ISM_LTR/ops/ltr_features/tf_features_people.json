@@ -1,0 +1,26 @@
+{
+  "features": [
+    {
+      "name": "name_bm25",
+      "params": [
+        "keywords"
+      ],
+      "template": {
+        "match": {
+          "name": "{{keywords}}"
+        }
+      }
+    },
+    {
+      "name": "skills_match",
+      "params": [
+        "keywords"
+      ],
+      "template": {
+        "match": {
+          "skills": "{{keywords}}"
+        }
+      }
+    }
+  ]
+}

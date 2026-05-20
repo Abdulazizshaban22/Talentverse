@@ -1,0 +1,92 @@
+{
+  "clientId": "api-gateway",
+  "authorizationSettings": {
+    "allowRemoteResourceManagement": true,
+    "policyEnforcementMode": "ENFORCING",
+    "decisionStrategy": "UNANIMOUS",
+    "resources": [
+      {
+        "name": "institution",
+        "uris": [
+          "/v1/institutions/*"
+        ],
+        "scopes": [
+          {
+            "name": "read"
+          },
+          {
+            "name": "write"
+          }
+        ],
+        "ownerManagedAccess": false
+      },
+      {
+        "name": "profile",
+        "uris": [
+          "/v1/profiles/*"
+        ],
+        "scopes": [
+          {
+            "name": "read"
+          },
+          {
+            "name": "write"
+          }
+        ],
+        "ownerManagedAccess": false
+      }
+    ],
+    "scopes": [
+      {
+        "name": "read"
+      },
+      {
+        "name": "write"
+      }
+    ],
+    "policies": [
+      {
+        "name": "gov-analyst-role",
+        "type": "role",
+        "logic": "POSITIVE",
+        "decisionStrategy": "UNANIMOUS",
+        "config": {
+          "roles": "[{\"id\":\"gov:analyst\",\"required\":true}]"
+        }
+      },
+      {
+        "name": "group-riyadh",
+        "type": "group",
+        "logic": "POSITIVE",
+        "decisionStrategy": "UNANIMOUS",
+        "config": {
+          "groups": "[{\"path\":\"/riyadh\",\"extendChildren\":true}]"
+        }
+      }
+    ],
+    "permissions": [
+      {
+        "name": "institution:read:riyadh",
+        "type": "scope",
+        "logic": "POSITIVE",
+        "decisionStrategy": "UNANIMOUS",
+        "config": {
+          "resources": "[\\\"institution\\\"]",
+          "scopes": "[\\\"read\\\"]",
+          "applyPolicies": "[\\\"gov-analyst-role\\\",\\\"group-riyadh\\\"]"
+        }
+      },
+      {
+        "name": "profile:read",
+        "type": "scope",
+        "logic": "POSITIVE",
+        "decisionStrategy": "UNANIMOUS",
+        "config": {
+          "resources": "[\\\"profile\\\"]",
+          "scopes": "[\\\"read\\\"]",
+          "applyPolicies": "[\\\"gov-analyst-role\\\"]"
+        }
+      }
+    ]
+  }
+}

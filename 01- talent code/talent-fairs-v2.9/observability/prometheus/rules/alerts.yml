@@ -1,0 +1,21 @@
+groups:
+- name: talent-fairs
+  rules:
+  - alert: ApiHighErrorRate
+    expr: sum(rate(http_request_duration_seconds_count{status=~"5.."}[5m])) / sum(rate(http_request_duration_seconds_count[5m])) > 0.05
+    for: 5m
+    labels:
+      severity: warning
+      service: api
+    annotations:
+      summary: "High 5xx error rate on API"
+      description: "More than 5% 5xx responses in the last 5 minutes."
+  - alert: WebsocketDrop
+    expr: avg_over_time(tf_ws_channel_connections[10m]) < 1
+    for: 10m
+    labels:
+      severity: critical
+      service: realtime
+    annotations:
+      summary: "Realtime connections dropped"
+      description: "No active WebSocket connections for 10 minutes."

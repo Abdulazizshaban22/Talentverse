@@ -1,0 +1,13 @@
+{
+  "name": "talent-fairs-unified",
+  "version": "4.0.0",
+  "private": true,
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "dev:api": "pnpm --filter @talent/api dev",
+    "dev:web": "pnpm --filter @talent/web dev",
+    "build": "pnpm -r build",
+    "lint": "echo 'add eslint later'",
+    "test": "node -e \"console.log('ok')\""
+  }
+}

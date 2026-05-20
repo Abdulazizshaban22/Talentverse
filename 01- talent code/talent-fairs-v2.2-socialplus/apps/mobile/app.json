@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "Talent Fairs",
+    "slug": "talent-fairs",
+    "scheme": "talentfairs",
+    "sdkVersion": "52.0.0",
+    "ios": {
+      "bundleIdentifier": "sa.talentfairs.app"
+    },
+    "android": {
+      "package": "sa.talentfairs.app"
+    }
+  }
+}

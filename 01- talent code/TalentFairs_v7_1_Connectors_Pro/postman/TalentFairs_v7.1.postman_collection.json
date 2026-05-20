@@ -1,0 +1,120 @@
+{
+  "info": {
+    "name": "TalentFairs v7.1 Connectors Pro",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "API",
+      "value": "http://localhost:4000"
+    }
+  ],
+  "item": [
+    {
+      "name": "OS Index Post",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"authorId\": \"demo\", \"text\": \"Hello OpenSearch\"}"
+        },
+        "url": "{{API}}/social/post"
+      }
+    },
+    {
+      "name": "OS Feed",
+      "request": {
+        "method": "GET",
+        "url": "{{API}}/social/feed?tenantId=public"
+      }
+    },
+    {
+      "name": "Search People",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"type\": \"people\", \"q\": \"Data\"}"
+        },
+        "url": "{{API}}/search/query"
+      }
+    },
+    {
+      "name": "Tap Create Charge",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"amount\": 10, \"currency\": \"SAR\", \"customer\": {\"first_name\": \"Aziz\"}}"
+        },
+        "url": "{{API}}/payments/tap/charge"
+      }
+    },
+    {
+      "name": "HyperPay Checkout",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"amount\": 10, \"currency\": \"SAR\", \"returnUrl\": \"https://app.talentfairs.sa/pay/return\"}"
+        },
+        "url": "{{API}}/payments/hyperpay/checkout"
+      }
+    },
+    {
+      "name": "Nafath Seal",
+      "request": {
+        "method": "GET",
+        "url": "{{API}}/identity/status"
+      }
+    },
+    {
+      "name": "Badges Issue",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"userId\": \"demo\", \"badgeId\": \"Data-101\", \"title\": \"Data Skills 101\"}"
+        },
+        "url": "{{API}}/identity/badges/issue"
+      }
+    },
+    {
+      "name": "Badges List",
+      "request": {
+        "method": "GET",
+        "url": "{{API}}/identity/badges/list?userId=demo"
+      }
+    }
+  ]
+}

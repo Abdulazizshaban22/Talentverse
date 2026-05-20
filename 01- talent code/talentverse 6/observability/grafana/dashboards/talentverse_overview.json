@@ -1,0 +1,29 @@
+{
+  "title": "Talentverse Overview",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Active Profiles",
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 0
+      },
+      "targets": []
+    },
+    {
+      "type": "stat",
+      "title": "Matches/day",
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 8,
+        "y": 0
+      },
+      "targets": []
+    }
+  ],
+  "schemaVersion": 38,
+  "version": 1
+}

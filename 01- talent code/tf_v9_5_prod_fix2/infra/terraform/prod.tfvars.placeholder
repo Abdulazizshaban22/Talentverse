@@ -1,0 +1,7 @@
+
+region       = "me-central-1"
+root_domain  = "talentfairs.sa"
+zone_id      = ""          # إن كانت لديك Hosted Zone مسبقة
+create_zone  = false       # غيّرها إلى true إذا تريد إنشاء Zone جديدة
+vpc_id       = "vpc-xxxxxxxx"
+subnets      = ["subnet-aaaa","subnet-bbbb"]

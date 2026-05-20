@@ -1,0 +1,5 @@
+image:
+  repository: ghcr.io/talentverse/ai-cognitiveiq
+  tag: v1
+service:
+  port: 8011

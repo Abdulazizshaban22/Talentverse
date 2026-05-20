@@ -1,0 +1,182 @@
+{
+  "tf_posts_policy": {
+    "policy": {
+      "description": "Rollover feed posts daily or at 5gb, then delete after 30d",
+      "default_state": "hot",
+      "states": [
+        {
+          "name": "hot",
+          "actions": [
+            {
+              "rollover": {
+                "min_size": "5gb",
+                "min_index_age": "1d"
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "state_name": "warm"
+            }
+          ]
+        },
+        {
+          "name": "warm",
+          "actions": [],
+          "transitions": [
+            {
+              "state_name": "delete",
+              "conditions": {
+                "min_index_age": "30d"
+              }
+            }
+          ]
+        },
+        {
+          "name": "delete",
+          "actions": [
+            {
+              "delete": {}
+            }
+          ],
+          "transitions": []
+        }
+      ]
+    }
+  },
+  "tf_people_policy": {
+    "policy": {
+      "description": "Rollover people weekly or at 2gb, delete after 90d",
+      "default_state": "hot",
+      "states": [
+        {
+          "name": "hot",
+          "actions": [
+            {
+              "rollover": {
+                "min_size": "2gb",
+                "min_index_age": "7d"
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "state_name": "warm"
+            }
+          ]
+        },
+        {
+          "name": "warm",
+          "actions": [],
+          "transitions": [
+            {
+              "state_name": "delete",
+              "conditions": {
+                "min_index_age": "90d"
+              }
+            }
+          ]
+        },
+        {
+          "name": "delete",
+          "actions": [
+            {
+              "delete": {}
+            }
+          ],
+          "transitions": []
+        }
+      ]
+    }
+  },
+  "tf_jobs_policy": {
+    "policy": {
+      "description": "Rollover jobs weekly or at 2gb, delete after 60d",
+      "default_state": "hot",
+      "states": [
+        {
+          "name": "hot",
+          "actions": [
+            {
+              "rollover": {
+                "min_size": "2gb",
+                "min_index_age": "7d"
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "state_name": "warm"
+            }
+          ]
+        },
+        {
+          "name": "warm",
+          "actions": [],
+          "transitions": [
+            {
+              "state_name": "delete",
+              "conditions": {
+                "min_index_age": "60d"
+              }
+            }
+          ]
+        },
+        {
+          "name": "delete",
+          "actions": [
+            {
+              "delete": {}
+            }
+          ],
+          "transitions": []
+        }
+      ]
+    }
+  },
+  "tf_courses_policy": {
+    "policy": {
+      "description": "Rollover courses weekly or at 2gb, delete after 180d",
+      "default_state": "hot",
+      "states": [
+        {
+          "name": "hot",
+          "actions": [
+            {
+              "rollover": {
+                "min_size": "2gb",
+                "min_index_age": "7d"
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "state_name": "warm"
+            }
+          ]
+        },
+        {
+          "name": "warm",
+          "actions": [],
+          "transitions": [
+            {
+              "state_name": "delete",
+              "conditions": {
+                "min_index_age": "180d"
+              }
+            }
+          ]
+        },
+        {
+          "name": "delete",
+          "actions": [
+            {
+              "delete": {}
+            }
+          ],
+          "transitions": []
+        }
+      ]
+    }
+  }
+}

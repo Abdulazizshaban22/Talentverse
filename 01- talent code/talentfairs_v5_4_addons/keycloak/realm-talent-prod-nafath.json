@@ -1,0 +1,77 @@
+{
+  "realm": "talent-prod",
+  "enabled": true,
+  "identityProviders": [
+    {
+      "alias": "nafath",
+      "providerId": "oidc",
+      "enabled": true,
+      "trustEmail": true,
+      "storeToken": false,
+      "addReadTokenRoleOnCreate": false,
+      "authenticateByDefault": false,
+      "firstBrokerLoginFlowAlias": "first broker login",
+      "config": {
+        "issuer": "https://<NAFATH_ISSUER>",
+        "authorizationUrl": "https://<NAFATH_AUTH_URL>/oauth2/authorize",
+        "tokenUrl": "https://<NAFATH_TOKEN_URL>/oauth2/token",
+        "userInfoUrl": "https://<NAFATH_USERINFO_URL>/oauth2/userinfo",
+        "jwksUrl": "https://<NAFATH_ISSUER>/.well-known/jwks.json",
+        "loginHint": "national-id",
+        "defaultScope": "openid profile email",
+        "clientId": "${env.NAFATH_CLIENT_ID}",
+        "clientSecret": "${env.NAFATH_CLIENT_SECRET}",
+        "useJwksUrl": "true",
+        "validateSignature": "true",
+        "backchannelSupported": "true",
+        "syncMode": "IMPORT"
+      }
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "talent-web",
+      "rootUrl": "https://app.talentfairs.sa",
+      "adminUrl": "",
+      "baseUrl": "/",
+      "enabled": true,
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "redirectUris": [
+        "https://app.talentfairs.sa/*",
+        "http://localhost:3000/*"
+      ],
+      "webOrigins": [
+        "https://app.talentfairs.sa",
+        "http://localhost:3000"
+      ],
+      "protocolMappers": []
+    },
+    {
+      "clientId": "talent-api",
+      "enabled": true,
+      "publicClient": false,
+      "serviceAccountsEnabled": true,
+      "standardFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "redirectUris": [],
+      "webOrigins": []
+    },
+    {
+      "clientId": "talent-mobile",
+      "enabled": true,
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "redirectUris": [
+        "com.talentfairs.app://cb",
+        "exp://*"
+      ],
+      "webOrigins": [
+        "*"
+      ]
+    }
+  ]
+}

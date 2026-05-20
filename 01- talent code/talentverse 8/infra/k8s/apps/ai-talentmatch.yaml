@@ -1,0 +1,21 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ai-talentmatch
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: ghcr.io/talentverse/ai-talentmatch:latest
+    argocd-image-updater.argoproj.io/write-back-method: argocd
+    argocd-image-updater.argoproj.io/update-strategy: latest
+spec:
+  project: default
+  source:
+    repoURL: https://git.example/talentverse.git
+    targetRevision: HEAD
+    path: infra/k8s/helm/charts/ai-talentmatch
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: talentverse
+  syncPolicy:
+    automated: { prune: true, selfHeal: true }

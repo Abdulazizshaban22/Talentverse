@@ -1,0 +1,29 @@
+{
+  "managedRules": [
+    {
+      "name": "AWSManagedRulesCommonRuleSet",
+      "vendor": "AWS",
+      "priority": 1
+    },
+    {
+      "name": "AWSManagedRulesKnownBadInputsRuleSet",
+      "vendor": "AWS",
+      "priority": 2
+    },
+    {
+      "name": "AWSManagedRulesSQLiRuleSet",
+      "vendor": "AWS",
+      "priority": 3
+    },
+    {
+      "name": "AWSManagedRulesPHPRuleSet",
+      "vendor": "AWS",
+      "priority": 4
+    },
+    {
+      "name": "AWSManagedRulesAmazonIpReputationList",
+      "vendor": "AWS",
+      "priority": 5
+    }
+  ]
+}

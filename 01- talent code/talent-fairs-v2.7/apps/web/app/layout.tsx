@@ -1,0 +1,1 @@
+<html lang='ar' dir='rtl'><body><main>{children}</main></body></html>

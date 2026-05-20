@@ -1,0 +1,4 @@
+
+apiVersion: v2
+name: ai-talentmatch
+version: 0.1.0

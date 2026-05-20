@@ -1,0 +1,8 @@
+project       = "talentfairs"
+env           = "prod"
+region        = "me-central-1"
+
+domain        = "app.talentfairs.sa"
+api_domain    = "api.talentfairs.sa"
+# MUST be us-east-1 ACM certificate ARN for CloudFront
+certificate_arn = "arn:aws:acm:us-east-1:123456789012:certificate/ABCDEF-1234"

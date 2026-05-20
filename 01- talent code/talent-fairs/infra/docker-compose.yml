@@ -1,0 +1,59 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: talent
+    ports: [ "5432:5432" ]
+    volumes: [ "db_data:/var/lib/postgresql/data" ]
+
+  redis:
+    image: redis:7
+    ports: [ "6379:6379" ]
+
+  keycloak-db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak
+    volumes: [ "kc_data:/var/lib/postgresql/data" ]
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0
+    command: ["start-dev"]
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: keycloak
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+    ports: [ "8080:8080" ]
+    depends_on: [ keycloak-db ]
+
+  api:
+    build: ../services/api
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/talent?schema=public
+      PORT_API: 4000
+    ports: [ "4000:4000" ]
+    depends_on: [ db ]
+
+  ai-core:
+    build: ../services/ai-core
+    command: uvicorn main:app --port 8000 --host 0.0.0.0
+    ports: [ "8000:8000" ]
+
+  points-engine:
+    build: ../services/points-engine
+    environment:
+      REDIS_URL: redis://redis:6379
+      PORT_POINTS: 4100
+    ports: [ "4100:4100" ]
+    depends_on: [ redis ]
+
+volumes:
+  db_data: {}
+  kc_data: {}

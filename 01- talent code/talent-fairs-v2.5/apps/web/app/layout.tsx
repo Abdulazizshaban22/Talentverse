@@ -1,0 +1,1 @@
+<html lang='ar' dir='rtl'><body><nav style={{padding:12,display:'flex',gap:12}}><a href='/'>الرئيسية</a><a href='/realtime'>البث الحي</a><a href='/admin/safety'>سلامة المحتوى</a></nav><main>{children}</main></body></html>

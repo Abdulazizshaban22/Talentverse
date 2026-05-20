@@ -1,0 +1,1 @@
+- OneRoster 1.2, PDPL, ZATCA, HyperPay/Tap/mada, Nafath SSO via Keycloak Broker.

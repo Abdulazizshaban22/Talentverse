@@ -1,0 +1,34 @@
+
+adminUser: admin
+adminPassword: admin123
+service:
+  type: ClusterIP
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        url: http://otel-collector.observability:8889
+        isDefault: true
+      - name: Tempo
+        type: tempo
+        access: proxy
+        url: http://tempo.observability:3100
+        jsonData:
+          httpMethod: GET
+          tracesToLogsV2:
+            datasourceUid: 'loki'
+            spanStartTimeShift: '1h'
+            spanEndTimeShift: '1h'
+          serviceMap:
+            datasourceUid: 'Prometheus'
+sidecar:
+  dashboards:
+    enabled: true
+    label: grafana_dashboard
+    labelValue: "1"
+  datasources:
+    enabled: true

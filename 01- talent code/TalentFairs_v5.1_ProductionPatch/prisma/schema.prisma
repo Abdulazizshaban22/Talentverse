@@ -1,0 +1,43 @@
+// prisma/schema.prisma (additions)
+model Org {
+  id         String  @id @default(cuid())
+  sourcedId  String  @unique
+  name       String
+  users      User[]
+}
+
+model User {
+  id           String  @id @default(cuid())
+  sourcedId    String  @unique
+  givenName    String
+  familyName   String
+  role         String
+  orgSourcedId String?
+}
+
+model SchoolClass {
+  id             String @id @default(cuid())
+  sourcedId      String @unique
+  title          String
+  courseSourcedId String?
+  enrollments    Enrollment[]
+}
+
+model Enrollment {
+  id            String @id @default(cuid())
+  sourcedId     String @unique
+  userSourcedId String
+  classSourcedId String
+  role          String
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  ts        DateTime @default(now())
+  actorId   String
+  actorRole String
+  action    String
+  entity    String
+  entityId  String
+  details   Json
+}

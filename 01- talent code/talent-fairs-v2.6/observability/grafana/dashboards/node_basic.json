@@ -1,0 +1,25 @@
+{
+  "title": "Talent Fairs \u2014 Node/Express",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Messages total",
+      "targets": [
+        {
+          "expr": "tf_messages_total"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Rewards redeemed",
+      "targets": [
+        {
+          "expr": "tf_rewards_redeemed_total"
+        }
+      ]
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 38
+}

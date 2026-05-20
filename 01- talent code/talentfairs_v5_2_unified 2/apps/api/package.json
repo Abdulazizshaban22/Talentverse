@@ -1,0 +1,30 @@
+{
+  "name": "@talent/api",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "ts-node-esm src/main.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/main.js",
+    "prisma:generate": "prisma generate"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.12",
+    "csv-parse": "^5.5.6",
+    "express": "^4.19.2",
+    "multer": "^1.4.5-lts.1",
+    "node-fetch": "^3.3.2",
+    "pkcs11js": "^2.0.31"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/multer": "^1.4.11",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3",
+    "prisma": "^5.18.0",
+    "@prisma/client": "^5.18.0",
+    "jest": "^29.7.0",
+    "@types/jest": "^29.5.12",
+    "ts-jest": "^29.2.5"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "@talent/api",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "ts-node-dev --respawn src/main.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/main.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "http": "^0.0.1-security",
+    "node-fetch": "^3.3.2",
+    "xmlbuilder2": "^3.0.2"
+  }
+}

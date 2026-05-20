@@ -1,0 +1,56 @@
+name: Go-Live — Unified v4.0
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: "Docker image tag (e.g., v4.0.${{ github.run_number }})"
+        required: true
+        default: "v4.0.${{ github.run_number }}"
+env:
+  AWS_REGION: ${{ vars.AWS_REGION }}
+  AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+  ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+  ROLE_TO_ASSUME_ARN: ${{ secrets.ROLE_TO_ASSUME_ARN }}
+  TF_VAR_PROJECT: ${{ vars.TF_VAR_PROJECT }}
+  TF_VAR_DOMAIN_NAME: ${{ vars.TF_VAR_DOMAIN_NAME }}
+  TF_VAR_alb_secret_header_name: ${{ vars.ALB_SECRET_HEADER_NAME }}
+  TF_VAR_alb_secret_header_value: ${{ secrets.ALB_SECRET_HEADER_VALUE }}
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: 'pnpm' }
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.ROLE_TO_ASSUME_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+      - name: Build API image and push to ECR
+        run: |
+          IMAGE_URI=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}
+          docker build -t ${IMAGE_URI}:${{ github.event.inputs.image_tag }} -f services/api/Dockerfile .
+          docker push ${IMAGE_URI}:${{ github.event.inputs.image_tag }}
+          echo "IMAGE_URI=${IMAGE_URI}:${{ github.event.inputs.image_tag }}" >> $GITHUB_ENV
+      - name: Terraform Init + Apply
+        working-directory: infra/terraform
+        env:
+          TF_VAR_api_image: ${{ env.IMAGE_URI }}
+          TF_VAR_project: ${{ env.TF_VAR_PROJECT }}
+          TF_VAR_domain_name: ${{ env.TF_VAR_DOMAIN_NAME }}
+          TF_VAR_alb_secret_header_name: ${{ env.TF_VAR_alb_secret_header_name }}
+          TF_VAR_alb_secret_header_value: ${{ env.TF_VAR_alb_secret_header_value }}
+        run: |
+          terraform init -input=false
+          terraform apply -auto-approve -input=false -var-file="prod.tfvars"
+      - name: Post-deploy Health Check
+        run: echo "✅ Applied. Propagation may take a few minutes."

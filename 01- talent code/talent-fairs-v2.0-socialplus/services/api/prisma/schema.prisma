@@ -1,0 +1,83 @@
+generator client { provider = "prisma-client-js" }
+datasource db { provider = "postgresql"; url = env("DATABASE_URL") }
+
+model User {
+  id        String  @id @default(cuid())
+  email     String  @unique
+  role      String  @default("talent")
+  createdAt DateTime @default(now())
+  points    Int     @default(0)
+  posts     Post[]
+}
+
+model Reward {
+  id     String @id @default(cuid())
+  title  String
+  partner String
+  cost   Int
+  stock  Int
+  active Boolean @default(true)
+}
+
+model PointsLedger {
+  id        String   @id @default(cuid())
+  userId    String
+  delta     Int
+  reason    String
+  createdAt DateTime @default(now())
+}
+
+model Post {
+  id         String   @id @default(cuid())
+  authorId   String
+  text       String?
+  mediaUrl   String?
+  mediaType  String?
+  tags       String[]
+  visibility String   @default("public")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  comments   Comment[]
+  likes      Like[]
+  shares     Share[]
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  postId    String
+  authorId  String
+  text      String
+  createdAt DateTime @default(now())
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  postId    String
+  userId    String
+  createdAt DateTime @default(now())
+  @@unique([postId, userId])
+}
+
+model Share {
+  id        String   @id @default(cuid())
+  postId    String
+  userId    String
+  createdAt DateTime @default(now())
+}
+
+model Follow {
+  id         String   @id @default(cuid())
+  followerId String
+  followeeId String
+  createdAt  DateTime @default(now())
+  @@unique([followerId, followeeId])
+}
+
+model MediaAsset {
+  id        String   @id @default(cuid())
+  ownerId   String
+  url       String
+  kind      String
+  meta      Json?
+  createdAt DateTime @default(now())
+}

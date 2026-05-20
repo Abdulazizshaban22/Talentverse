@@ -1,0 +1,35 @@
+
+services:
+  api:
+    build: ./api
+    ports: ["4000:4000"]
+    environment:
+      - PORT=${API_PORT:-4000}
+      - OPENSEARCH_NODE=${OPENSEARCH_NODE}
+      - OPENSEARCH_AUTH=${OPENSEARCH_AUTH}
+      - KEYCLOAK_JWKS_URL=${KEYCLOAK_JWKS_URL}
+      - JWT_EXPECTED_AUD=${JWT_EXPECTED_AUD}
+      - JWT_EXPECTED_ISS=${JWT_EXPECTED_ISS}
+      - TAP_SECRET=${TAP_SECRET}
+      - HYPERPAY_CHECKSUM_KEY=${HYPERPAY_CHECKSUM_KEY}
+      - RESEND_API_KEY=${RESEND_API_KEY}
+    depends_on: [opensearch, neo4j]
+  opensearch:
+    image: opensearchproject/opensearch:2.13.0
+    environment:
+      - discovery.type=single-node
+      - plugins.security.disabled=true
+      - OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m
+    ports: ["9200:9200"]
+  neo4j:
+    image: neo4j:5.23
+    environment:
+      - NEO4J_AUTH=neo4j/password
+      - NEO4J_PLUGINS=["graph-data-science"]
+    ports: ["7474:7474","7687:7687"]
+  grafana:
+    image: grafana/grafana:11.2.0
+    ports: ["3001:3000"]
+    volumes:
+      - ./observability/grafana/dashboards:/var/lib/grafana/dashboards
+      - ./observability/grafana/provisioning:/etc/grafana/provisioning

@@ -1,0 +1,21 @@
+project       = "talentfairs"
+region        = "me-central-1"
+env           = "prod"
+
+domain        = "app.talentfairs.sa"
+api_domain    = "api.talentfairs.sa"
+
+vpc_id        = "vpc-xxxxxxxx"
+private_subnets = ["subnet-aaaa", "subnet-bbbb"]
+public_subnets  = ["subnet-cccc", "subnet-dddd"]
+
+# CloudFront certificate MUST be us-east-1
+certificate_arn = "arn:aws:acm:us-east-1:123456789012:certificate/abc-def"
+
+# ECR repos
+ecr_api_repo = "123456789012.dkr.ecr.me-central-1.amazonaws.com/tf-api"
+ecr_web_repo = "123456789012.dkr.ecr.me-central-1.amazonaws.com/tf-web"
+
+container_cpu    = 512
+container_memory = 1024
+desired_count    = 2

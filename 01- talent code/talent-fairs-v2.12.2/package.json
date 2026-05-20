@@ -1,0 +1,11 @@
+{
+  "name": "talent-fairs",
+  "version": "2.12.2",
+  "private": true,
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "dev:api": "pnpm --filter @talent/api dev",
+    "dev:web": "pnpm --filter @talent/web dev",
+    "build": "pnpm -r build"
+  }
+}

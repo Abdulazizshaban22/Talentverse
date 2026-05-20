@@ -1,0 +1,5 @@
+
+[project]
+name = "ai-cognitiveiq"
+version = "1.2.0"
+dependencies = ["fastapi>=0.115.0","uvicorn>=0.30.0","pydantic>=2.7.0","numpy>=1.26.0","transformers>=4.44.0","torch>=2.2.0"]

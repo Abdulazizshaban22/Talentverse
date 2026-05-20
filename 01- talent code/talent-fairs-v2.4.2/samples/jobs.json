@@ -1,0 +1,36 @@
+[
+  {
+    "title": "Front-End Developer",
+    "company": "CaveTech",
+    "skills": [
+      "JavaScript",
+      "React",
+      "SQL"
+    ],
+    "location": "Riyadh",
+    "employmentType": "FULL_TIME",
+    "applyUrl": "https://example.com/apply/1"
+  },
+  {
+    "title": "Project Manager",
+    "company": "Wisal",
+    "skills": [
+      "Project management",
+      "SQL"
+    ],
+    "location": "Jeddah",
+    "employmentType": "FULL_TIME",
+    "applyUrl": "https://example.com/apply/2"
+  },
+  {
+    "title": "Data Analyst",
+    "company": "Mizaneyah",
+    "skills": [
+      "SQL",
+      "JavaScript"
+    ],
+    "location": "Remote",
+    "employmentType": "CONTRACT",
+    "applyUrl": "https://example.com/apply/3"
+  }
+]

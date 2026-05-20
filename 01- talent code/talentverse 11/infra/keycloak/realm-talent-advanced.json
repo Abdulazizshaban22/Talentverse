@@ -1,0 +1,79 @@
+{
+  "realm": "talentverse",
+  "enabled": true,
+  "eventsEnabled": true,
+  "eventsListeners": [
+    "jboss-logging"
+  ],
+  "adminEventsEnabled": true,
+  "adminEventsDetailsEnabled": true,
+  "clients": [
+    {
+      "clientId": "web",
+      "redirectUris": [
+        "http://localhost:3000/*"
+      ],
+      "publicClient": true
+    },
+    {
+      "clientId": "admin",
+      "redirectUris": [
+        "http://localhost:3001/*"
+      ],
+      "publicClient": true
+    },
+    {
+      "clientId": "api-gateway",
+      "serviceAccountsEnabled": true
+    }
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "talent:user"
+      },
+      {
+        "name": "gov:analyst"
+      },
+      {
+        "name": "admin"
+      }
+    ]
+  },
+  "groups": [
+    {
+      "name": "moe",
+      "attributes": {
+        "region": [
+          "national"
+        ]
+      },
+      "realmRoles": [
+        "gov:analyst"
+      ]
+    },
+    {
+      "name": "sports-federation",
+      "attributes": {
+        "region": [
+          "national"
+        ]
+      },
+      "realmRoles": [
+        "gov:analyst"
+      ]
+    },
+    {
+      "name": "riyadh",
+      "attributes": {
+        "region": [
+          "riyadh"
+        ]
+      },
+      "realmRoles": [
+        "gov:analyst"
+      ]
+    }
+  ],
+  "components": {}
+}

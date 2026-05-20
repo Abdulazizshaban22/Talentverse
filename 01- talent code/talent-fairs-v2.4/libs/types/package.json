@@ -1,0 +1,6 @@
+{
+  "name": "@talent/types",
+  "version": "0.0.2",
+  "main": "index.ts",
+  "type": "module"
+}

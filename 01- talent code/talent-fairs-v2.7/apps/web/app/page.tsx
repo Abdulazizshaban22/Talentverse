@@ -1,0 +1,1 @@
+export default ()=> <main style={{padding:24}}><h1>TF v2.7</h1></main>

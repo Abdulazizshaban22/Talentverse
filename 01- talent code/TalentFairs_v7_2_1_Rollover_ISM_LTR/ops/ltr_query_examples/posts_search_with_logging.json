@@ -1,0 +1,18 @@
+{
+  "query": {
+    "sltr": {
+      "_name": "logged_features",
+      "featureset": "tf_features_posts",
+      "params": { "keywords": "data" }
+    }
+  },
+  "ext": {
+    "ltr_log": {
+      "log_specs": {
+        "name": "tf_log",
+        "named_query": "logged_features"
+      }
+    }
+  },
+  "size": 50
+}

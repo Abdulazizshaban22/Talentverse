@@ -1,0 +1,45 @@
+{
+  "title": "TalentFairs — nDCG Trend",
+  "schemaVersion": 38,
+  "time": {
+    "from": "now-30d",
+    "to": "now"
+  },
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "nDCG@K by Domain & Alias",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-opensearch-datasource",
+            "uid": "OPENSEARCH_DS"
+          },
+          "queryType": "lucene",
+          "refId": "A",
+          "query": "index:tf_metrics_ndcg AND ndcg_at_k:*",
+          "bucketAggs": [
+            {
+              "type": "date_histogram",
+              "field": "@timestamp",
+              "settings": {
+                "interval": "1d"
+              }
+            }
+          ],
+          "metrics": [
+            {
+              "type": "avg",
+              "field": "ndcg_at_k"
+            }
+          ],
+          "alias": "{{domain}} / {{model_alias}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+
+name: Grafana Import
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [ main ]
+    paths: [ 'observability/grafana/dashboards/**', '.github/workflows/grafana_import.yml', 'scripts/grafana_import.sh' ]
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Import dashboards
+        env:
+          GRAFANA_URL: ${{ secrets.GRAFANA_URL }}
+          GRAFANA_API_TOKEN: ${{ secrets.GRAFANA_API_TOKEN }}
+        run: |
+          bash scripts/grafana_import.sh

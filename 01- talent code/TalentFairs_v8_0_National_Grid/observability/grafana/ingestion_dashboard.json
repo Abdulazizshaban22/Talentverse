@@ -1,0 +1,37 @@
+{
+  "title": "TF National Grid — Adoption & Ingestion",
+  "schemaVersion": 38,
+  "time": {
+    "from": "now-30d",
+    "to": "now"
+  },
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Active Tenants",
+      "targets": [
+        {
+          "query": "index:tf_tenants_*"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "OneRoster Imports/day",
+      "targets": [
+        {
+          "query": "index:tf_ingest_oneroster_*"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Badges Issued/day",
+      "targets": [
+        {
+          "query": "index:tf_badges_*"
+        }
+      ]
+    }
+  ]
+}

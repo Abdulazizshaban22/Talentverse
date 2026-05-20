@@ -1,0 +1,12 @@
+{
+  "name": "@talent/gds-pipeline",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "run": "node pagerank_update.js"
+  },
+  "dependencies": {
+    "neo4j-driver": "^5.22.0"
+  }
+}

@@ -1,0 +1,6 @@
+project       = "talentfairs"
+region        = "me-central-1"
+env           = "prod"
+domain        = "app.talentfairs.sa"
+api_domain    = "api.talentfairs.sa"
+certificate_arn = "arn:aws:acm:us-east-1:111111111111:certificate/xxx"

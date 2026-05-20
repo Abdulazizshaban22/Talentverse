@@ -1,0 +1,15 @@
+أضف إلى apps/api/src/main.js (أو ما يعادله):
+
+import { socialFeed }    from './social_feed.js'
+import { messaging }     from './messaging.js'
+import { biz }           from './company_groups_recruiter.js'
+import { lms }           from './lms_marketplace.js'
+import { credentials }   from './credentials_openbadges.js'
+import { search }        from './search_stub.js'
+
+app.use('/social', socialFeed)
+app.use('/msg', messaging)
+app.use('/biz', biz)
+app.use('/lms', lms)
+app.use('/credentials', credentials)
+app.use('/search', search)

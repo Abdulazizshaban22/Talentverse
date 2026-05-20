@@ -1,0 +1,12 @@
+{
+  "name": "@talent/esco-sync",
+  "version": "0.0.2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/seed-from-file.js"
+  },
+  "dependencies": {
+    "pg": "^8.12.0"
+  }
+}

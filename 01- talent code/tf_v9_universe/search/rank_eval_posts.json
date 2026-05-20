@@ -1,0 +1,9 @@
+{
+  "requests": [],
+  "metric": {
+    "precision": {
+      "k": 10,
+      "relevant_rating_threshold": 1
+    }
+  }
+}

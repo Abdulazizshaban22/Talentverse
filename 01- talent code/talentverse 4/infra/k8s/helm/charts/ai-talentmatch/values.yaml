@@ -1,0 +1,6 @@
+
+image:
+  repository: ghcr.io/talentverse/ai-talentmatch
+  tag: v1
+service:
+  port: 8010

@@ -1,0 +1,22 @@
+{
+  "alias": "nafath",
+  "displayName": "Nafath",
+  "providerId": "oidc",
+  "enabled": true,
+  "trustEmail": true,
+  "storeToken": true,
+  "addReadTokenRoleOnCreate": false,
+  "authenticateByDefault": false,
+  "firstBrokerLoginFlowAlias": "first broker login",
+  "config": {
+    "useJwksUrl": "true",
+    "authorizationUrl": "https://<nafath-issuer>/authorize",
+    "tokenUrl": "https://<nafath-issuer>/token",
+    "jwksUrl": "https://<nafath-issuer>/.well-known/jwks.json",
+    "clientId": "<client-id>",
+    "clientSecret": "<client-secret>",
+    "clientAuthMethod": "client_secret_post",
+    "defaultScope": "openid profile national_id",
+    "uiLocales": "ar en"
+  }
+}

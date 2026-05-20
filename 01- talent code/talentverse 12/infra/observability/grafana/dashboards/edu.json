@@ -1,0 +1,17 @@
+{
+  "title": "Education — Students by Region",
+  "panels": [
+    {
+      "type": "table",
+      "title": "Students per Region",
+      "targets": [
+        {
+          "rawSql": "SELECT region, COUNT(*) AS students, ROUND(AVG(gpa)::numeric,2) AS avg_gpa FROM edu_student GROUP BY region ORDER BY region",
+          "format": "table"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 38,
+  "version": 1
+}

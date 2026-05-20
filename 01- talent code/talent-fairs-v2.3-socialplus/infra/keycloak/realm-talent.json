@@ -1,0 +1,26 @@
+{
+  "realm": "talent",
+  "enabled": true,
+  "clients": [
+    {
+      "clientId": "web"
+    },
+    {
+      "clientId": "mobile",
+      "publicClient": true
+    }
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "admin"
+      },
+      {
+        "name": "org"
+      },
+      {
+        "name": "talent"
+      }
+    ]
+  }
+}

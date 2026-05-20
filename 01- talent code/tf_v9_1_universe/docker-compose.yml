@@ -1,0 +1,28 @@
+
+services:
+  api:
+    build: ./api
+    ports: [ "4000:4000" ]
+    environment:
+      - PORT=${API_PORT:-4000}
+      - OPENSEARCH_NODE=${OPENSEARCH_NODE}
+      - OPENSEARCH_AUTH=${OPENSEARCH_AUTH}
+      - KEYCLOAK_BASE=${KEYCLOAK_BASE}
+      - KEYCLOAK_REALM=${KEYCLOAK_REALM}
+      - TAP_SECRET=${TAP_SECRET}
+      - HYPERPAY_ACCESS_TOKEN=${HYPERPAY_ACCESS_TOKEN}
+      - RESEND_API_KEY=${RESEND_API_KEY}
+    depends_on: [opensearch, neo4j]
+  opensearch:
+    image: opensearchproject/opensearch:2.13.0
+    environment:
+      - discovery.type=single-node
+      - plugins.security.disabled=true
+      - OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m
+    ports: ["9200:9200"]
+  neo4j:
+    image: neo4j:5.23
+    environment:
+      - NEO4J_AUTH=neo4j/password
+      - NEO4J_PLUGINS=["graph-data-science"]
+    ports: ["7474:7474","7687:7687"]

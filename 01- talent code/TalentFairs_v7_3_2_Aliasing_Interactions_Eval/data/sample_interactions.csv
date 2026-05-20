@@ -1,0 +1,4 @@
+domain,doc_id,action,dwell_ms
+posts,post_1,click,1200
+posts,post_2,like,5000
+posts,post_3,comment,0

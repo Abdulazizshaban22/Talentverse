@@ -1,0 +1,98 @@
+generator client { provider = "prisma-client-js" }
+datasource db { provider = "postgresql"; url = env("DATABASE_URL") }
+
+model School {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  classes   Class[]
+  createdAt DateTime @default(now())
+}
+
+model Class {
+  id        String   @id @default(cuid())
+  name      String
+  school    School   @relation(fields: [schoolId], references: [id])
+  schoolId  String
+  students  Student[]
+}
+
+model Guardian {
+  id        String   @id @default(cuid())
+  fullName  String
+  phone     String?
+  email     String?
+  students  Student[]
+}
+
+model Student {
+  id           String   @id @default(cuid())
+  fullName     String
+  birthDate    DateTime?
+  class        Class?   @relation(fields: [classId], references: [id])
+  classId      String?
+  guardian     Guardian? @relation(fields: [guardianId], references: [id])
+  guardianId   String?
+  assessments  Assessment[]
+  portfolio    PortfolioItem[]
+  growth       GrowthPoint[]
+  consents     Consent[]
+  graphScores  GraphScore[]
+  createdAt    DateTime @default(now())
+}
+
+model Consent {
+  id        String   @id @default(cuid())
+  student   Student  @relation(fields: [studentId], references: [id])
+  studentId String
+  purpose   String
+  granted   Boolean  @default(false)
+  grantedBy String?
+  createdAt DateTime @default(now())
+}
+
+model Assessment {
+  id        String   @id @default(cuid())
+  student   Student  @relation(fields: [studentId], references: [id])
+  studentId String
+  school    School?  @relation(fields: [schoolId], references: [id])
+  schoolId  String?
+  className String?
+  linguistic   Int
+  logical      Int
+  social       Int
+  art          Int
+  kinesthetic  Int
+  spatial      Int
+  digital      Int
+  self         Int
+  note       String?
+  createdAt DateTime @default(now())
+}
+
+model PortfolioItem {
+  id        String   @id @default(cuid())
+  student   Student  @relation(fields: [studentId], references: [id])
+  studentId String
+  title     String
+  kind      String
+  url       String?
+  createdAt DateTime @default(now())
+}
+
+model GrowthPoint {
+  id        String   @id @default(cuid())
+  student   Student  @relation(fields: [studentId], references: [id])
+  studentId String
+  year      Int
+  metric    String
+  value     Float
+  createdAt DateTime @default(now())
+}
+
+model GraphScore {
+  id        String   @id @default(cuid())
+  student   Student  @relation(fields: [studentId], references: [id])
+  studentId String
+  score     Float
+  createdAt DateTime @default(now())
+}

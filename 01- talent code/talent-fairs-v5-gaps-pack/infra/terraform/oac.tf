@@ -1,0 +1,1 @@
+resource "aws_cloudfront_origin_access_control" "api_oac" { name="tf-oac" origin_access_control_origin_type="custom" signing_behavior="always" signing_protocol="sigv4" }

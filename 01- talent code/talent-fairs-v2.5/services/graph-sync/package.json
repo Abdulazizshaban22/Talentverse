@@ -1,0 +1,13 @@
+{
+  "name": "@talent/graph-sync",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/sync.js"
+  },
+  "dependencies": {
+    "neo4j-driver": "^5.22.0",
+    "pg": "^8.12.0"
+  }
+}

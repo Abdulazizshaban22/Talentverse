@@ -1,0 +1,22 @@
+
+tempo:
+  receivers:
+    otlp:
+      protocols:
+        grpc: {}
+        http: {}
+distributor:
+  config:
+    log_received_traces: false
+compactor:
+  config:
+    compaction:
+      block_retention: 48h
+storage:
+  trace:
+    backend: filesystem
+    filesystem:
+      dir: /var/tempo/traces
+persistence:
+  enabled: true
+  size: 10Gi

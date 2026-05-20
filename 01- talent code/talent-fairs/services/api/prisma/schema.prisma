@@ -1,0 +1,53 @@
+generator client { provider = "prisma-client-js" }
+datasource db { provider = "postgresql"; url = env("DATABASE_URL") }
+
+model User {
+  id         String  @id @default(cuid())
+  email      String  @unique
+  role       String  @default("talent")
+  createdAt  DateTime @default(now())
+  profile    TalentProfile?
+  points     Int     @default(0)
+  ledger     PointsLedger[]
+}
+
+model TalentProfile {
+  id          String  @id @default(cuid())
+  userId      String  @unique
+  displayName String
+  bio         String?
+  avatarUrl   String?
+  skills      String[]
+  scoreOverall Float   @default(0)
+  scoreCreativity Float @default(0)
+  scoreTech     Float @default(0)
+  scoreLeader   Float @default(0)
+  User        User     @relation(fields: [userId], references: [id])
+}
+
+model Event {
+  id        String   @id @default(cuid())
+  title     String
+  kind      String   // hackathon | challenge | job | training
+  startsAt  DateTime
+  endsAt    DateTime
+  orgId     String
+}
+
+model Reward {
+  id        String   @id @default(cuid())
+  title     String
+  partner   String
+  cost      Int      // points cost
+  stock     Int
+  active    Boolean  @default(true)
+}
+
+model PointsLedger {
+  id        String   @id @default(cuid())
+  userId    String
+  delta     Int
+  reason    String
+  createdAt DateTime @default(now())
+  User      User     @relation(fields: [userId], references: [id])
+}

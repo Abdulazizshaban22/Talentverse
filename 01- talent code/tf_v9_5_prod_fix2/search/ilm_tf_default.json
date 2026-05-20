@@ -1,0 +1,37 @@
+{
+  "policy": {
+    "description": "Hot\u2192Warm w/ daily/size rollover",
+    "default_state": "hot",
+    "states": [
+      {
+        "name": "hot",
+        "actions": [
+          {
+            "rollover": {
+              "min_size": "1gb",
+              "min_index_age": "1d"
+            }
+          }
+        ],
+        "transitions": [
+          {
+            "state_name": "warm",
+            "conditions": {
+              "min_index_age": "3d"
+            }
+          }
+        ]
+      },
+      {
+        "name": "warm",
+        "actions": [
+          {
+            "replica_count": {
+              "number_of_replicas": 0
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

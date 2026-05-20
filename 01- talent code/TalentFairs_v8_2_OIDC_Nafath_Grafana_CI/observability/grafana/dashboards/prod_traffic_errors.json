@@ -1,0 +1,53 @@
+{
+  "title": "TF – Prod: Traffic & Errors",
+  "schemaVersion": 38,
+  "panels": [
+    {
+      "type": "stat",
+      "title": "CF 5xx % (avg)",
+      "targets": [
+        {
+          "refId": "A",
+          "namespace": "AWS/CloudFront",
+          "metricName": "5xxErrorRate",
+          "region": "default",
+          "dimensions": {
+            "DistributionId": "${CF_DISTRIBUTION_ID}",
+            "Region": "Global"
+          }
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "ALB Target 5xx (sum)",
+      "targets": [
+        {
+          "refId": "B",
+          "namespace": "AWS/ApplicationELB",
+          "metricName": "HTTPCode_Target_5XX_Count",
+          "region": "${AWS_REGION}",
+          "dimensions": {
+            "LoadBalancer": "${ALB_ARN_SUFFIX}"
+          }
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "ALB p95 Latency",
+      "targets": [
+        {
+          "refId": "C",
+          "namespace": "AWS/ApplicationELB",
+          "metricName": "TargetResponseTime",
+          "region": "${AWS_REGION}",
+          "stat": "p95",
+          "dimensions": {
+            "LoadBalancer": "${ALB_ARN_SUFFIX}"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "alias": "nafath",
+  "providerId": "oidc",
+  "enabled": true,
+  "config": {
+    "issuer": "https://<nafath-issuer.example.gov.sa>",
+    "authorizationUrl": "https://<nafath>/oauth2/authorize",
+    "tokenUrl": "https://<nafath>/oauth2/token",
+    "jwksUrl": "https://<nafath>/.well-known/jwks.json",
+    "clientId": "<client-id>",
+    "clientSecret": "<client-secret>",
+    "defaultScope": "openid profile email"
+  }
+}

@@ -1,0 +1,1 @@
+import { Router } from 'express'; export const k12Router=Router(); k12Router.get('/coach/today',(_,_r)=>_.json({ok:true}));

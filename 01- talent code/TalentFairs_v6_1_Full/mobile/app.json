@@ -1,0 +1,22 @@
+{
+  "expo": {
+    "name": "TalentFairs",
+    "slug": "talentfairs",
+    "scheme": "com.talentfairs.app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "ios": {
+      "bundleIdentifier": "com.talentfairs.app",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.talentfairs.app"
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "extra": {
+      "apiUrl": "https://api.talentfairs.sa"
+    }
+  }
+}

@@ -1,0 +1,107 @@
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: talentverse
+    ports: ["5432:5432"]
+    volumes: [dbdata:/var/lib/postgresql/data]
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0
+    command: ["start-dev"]
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://db:5432/talentverse
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: postgres
+    ports: ["8081:8080"]
+    depends_on: [db]
+
+  api-gateway:
+    build: ./services/api-gateway
+    environment:
+      PORT: 8000
+      KEYCLOAK_JWKS_URL: http://keycloak:8080/realms/talentverse/protocol/openid-connect/certs
+      KEYCLOAK_ISSUER: http://keycloak:8080/realms/talentverse
+      KEYCLOAK_TOKEN_URL: http://keycloak:8080/realms/talentverse/protocol/openid-connect/token
+      KEYCLOAK_AUDIENCE: api-gateway
+      KEYCLOAK_CLIENT_ID: api-gateway
+      KEYCLOAK_CLIENT_SECRET: changeme
+      DATABASE_URL: postgres://postgres:postgres@db:5432/talentverse
+      AUTHZ_MODE: UMA
+      WEBPUSH_SUBJECT: mailto:admin@example.com
+      VAPID_PUBLIC_KEY: ${VAPID_PUBLIC_KEY}
+      VAPID_PRIVATE_KEY: ${VAPID_PRIVATE_KEY}
+    ports: ["8000:8000"]
+    depends_on: [keycloak, db]
+
+  ai-talentmatch:
+    build: ./services/ai-talentmatch
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/talentverse
+      USE_HF: "1"
+    ports: ["8010:8010"]
+    command: ["uvicorn","services.ai_talentmatch.src.main:app","--host","0.0.0.0","--port","8010"]
+
+  ai-cognitiveiq:
+    build: ./services/ai-cognitiveiq
+    environment:
+      USE_HF: "1"
+    ports: ["8050:8050"]
+    command: ["uvicorn","services.ai_cognitiveiq.src.main:app","--host","0.0.0.0","--port","8050"]
+
+  challengehub:
+    build: ./services/challengehub
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/talentverse
+    ports: ["8040:8040"]
+    command: ["uvicorn","services.challengehub.src.main:app","--host","0.0.0.0","--port","8040"]
+
+  web-talent:
+    build: ./apps/web-talent
+    environment:
+      NEXTAUTH_URL: http://localhost:3000
+      NEXTAUTH_SECRET: changeme
+      KEYCLOAK_ISSUER: http://localhost:8081/realms/talentverse
+      KEYCLOAK_CLIENT_ID: web-app
+      KEYCLOAK_CLIENT_SECRET: changeme
+      API_BASE: http://localhost:8000
+      NEXT_PUBLIC_VAPID_PUBLIC_KEY: ${VAPID_PUBLIC_KEY}
+    ports: ["3000:3000"]
+    command: ["npm","run","dev"]
+
+  web-org:
+    build: ./apps/web-org
+    environment:
+      NEXTAUTH_URL: http://localhost:3001
+      NEXTAUTH_SECRET: changeme
+      KEYCLOAK_ISSUER: http://localhost:8081/realms/talentverse
+      KEYCLOAK_CLIENT_ID: web-app
+      KEYCLOAK_CLIENT_SECRET: changeme
+      API_BASE: http://localhost:8000
+      NEXT_PUBLIC_VAPID_PUBLIC_KEY: ${VAPID_PUBLIC_KEY}
+    ports: ["3001:3001"]
+    command: ["npm","run","dev"]
+
+  otel-collector:
+    image: otel/opentelemetry-collector:0.99.0
+    volumes: ["./infra/observability/otel-collector-values.yaml:/etc/otelcol/config.yaml"]
+    command: ["--config=/etc/otelcol/config.yaml"]
+    ports: ["4317:4317","8889:8889"]
+
+  tempo:
+    image: grafana/tempo:2.5.0
+    ports: ["3100:3100"]
+
+  grafana:
+    image: grafana/grafana:11.1.0
+    ports: ["3002:3000"]
+    volumes: ["./infra/observability/grafana/grafana.ini:/etc/grafana/grafana.ini"]
+
+volumes:
+  dbdata:

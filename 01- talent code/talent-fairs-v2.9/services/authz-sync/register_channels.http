@@ -1,0 +1,17 @@
+### Obtain admin token (replace credentials if needed)
+POST {{KC_ADMIN_URL}}/realms/master/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&client_id=admin-cli&username={{KC_USER}}&password={{KC_PASS}}
+
+### Create resource in Protection API (UMA) for a channel
+# Bearer {{admin_token}}
+POST {{KC_ADMIN_URL}}/realms/{{KC_REALM}}/authz/protection/resource_set
+Content-Type: application/json
+Authorization: Bearer {{admin_token}}
+
+{
+  "name": "channel:general",
+  "type": "channel",
+  "scopes": ["join","send","type"]
+}

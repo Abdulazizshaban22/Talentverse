@@ -1,0 +1,5 @@
+generator client { provider = "prisma-client-js" }
+datasource db { provider = "postgresql"; url = env("DATABASE_URL") }
+model ScreeningRule { id String @id @default(cuid()) name String dsl Json active Boolean @default(true) createdAt DateTime @default(now()) }
+model RankerWeights { id String @id @default("singleton") wGraph Float @default(0.5) wLTR Float @default(0.5) updatedAt DateTime @updatedAt }
+model Occupation { id String @id @default(cuid()) escoId String @unique name String }

@@ -1,0 +1,1 @@
+export default function Trust(){return <main style={{padding:24}}><h1>Trust & Safety</h1></main>}

@@ -1,0 +1,23 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: ai-cognitiveiq }
+spec:
+  replicas: 2
+  selector: { matchLabels: { app: ai-cognitiveiq } }
+  template:
+    metadata: { labels: { app: ai-cognitiveiq } }
+    spec:
+      containers:
+        - name: app
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports: [{{containerPort: 8011}}]
+---
+apiVersion: v1
+kind: Service
+metadata: { name: ai-cognitiveiq }
+spec:
+  selector: { app: ai-cognitiveiq }
+  ports:
+    - port: 80
+      targetPort: 8011

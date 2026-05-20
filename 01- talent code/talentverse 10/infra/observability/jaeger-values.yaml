@@ -1,0 +1,10 @@
+
+provisionDataStore:
+  cassandra: false
+allInOne:
+  enabled: true
+  image: jaegertracing/all-in-one:1.57
+  options:
+    query:
+      base-path: /
+    log-level: info

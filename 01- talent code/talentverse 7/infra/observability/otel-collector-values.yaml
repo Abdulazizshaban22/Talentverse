@@ -1,0 +1,36 @@
+
+mode: deployment
+image:
+  repository: otel/opentelemetry-collector
+config:
+  receivers:
+    otlp:
+      protocols:
+        grpc: {}
+        http: {}
+  processors:
+    batch: {}
+    memory_limiter: {}
+  exporters:
+    otlp/tempo:
+      endpoint: tempo-distributor.tempo:4317
+      tls:
+        insecure: true
+    prometheus:
+      endpoint: 0.0.0.0:8889
+  service:
+    pipelines:
+      traces:
+        receivers: [otlp]
+        processors: [batch]
+        exporters: [otlp/tempo]
+      metrics:
+        receivers: [otlp]
+        processors: [batch]
+        exporters: [prometheus]
+service:
+  type: ClusterIP
+  ports:
+    metrics:
+      enabled: true
+      servicePort: 8889

@@ -1,0 +1,23 @@
+route:
+  receiver: default
+  routes:
+    - matchers:
+        - service="api"
+      receiver: ops
+    - matchers:
+        - service="realtime"
+      receiver: ops
+
+receivers:
+  - name: default
+    email_configs:
+      - to: ops@example.com
+        from: alerts@example.com
+        smarthost: smtp.example.com:587
+        auth_username: alerts@example.com
+        auth_identity: alerts@example.com
+        auth_password: change-me
+  - name: ops
+    slack_configs:
+      - api_url: https://hooks.slack.com/services/T000/B000/XXX
+        channel: '#ops'

@@ -1,0 +1,36 @@
+{
+  "info": {
+    "name": "TalentFairs v8.0 API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Ingest OneRoster CSV",
+      "request": {
+        "method": "POST",
+        "url": "https://api.talentfairs.sa/ingest/oneroster/csv"
+      }
+    },
+    {
+      "name": "Sync ESCO",
+      "request": {
+        "method": "POST",
+        "url": "https://api.talentfairs.sa/skills/esco/sync"
+      }
+    },
+    {
+      "name": "Export Europass",
+      "request": {
+        "method": "POST",
+        "url": "https://api.talentfairs.sa/credentials/europass/export"
+      }
+    },
+    {
+      "name": "Issue Badge",
+      "request": {
+        "method": "POST",
+        "url": "https://api.talentfairs.sa/badges/issue"
+      }
+    }
+  ]
+}

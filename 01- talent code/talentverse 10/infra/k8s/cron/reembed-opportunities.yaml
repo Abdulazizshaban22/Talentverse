@@ -1,0 +1,20 @@
+
+apiVersion: batch/v1
+kind: CronJob
+metadata: { name: reembed-opportunities, namespace: talentverse }
+spec:
+  schedule: "0 3 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: job
+              image: ghcr.io/talentverse/ai-talentmatch:latest
+              command: ["python","-m","src.batch.reembed"]
+              env:
+                - name: DATABASE_URL
+                  valueFrom: { secretKeyRef: { name: db, key: url } }
+                - name: USE_HF
+                  value: "1"
+          restartPolicy: OnFailure

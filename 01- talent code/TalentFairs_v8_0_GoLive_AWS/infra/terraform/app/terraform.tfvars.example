@@ -1,0 +1,8 @@
+
+project = "talentfairs"
+region  = "me-central-1"
+domain  = "talentfairs.sa"
+alb_cert_arn = "arn:aws:acm:me-central-1:123456789012:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+cf_cert_arn  = "arn:aws:acm:us-east-1:123456789012:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+api_image = "123456789012.dkr.ecr.me-central-1.amazonaws.com/talentfairs/api:8.0.0"
+web_image = "123456789012.dkr.ecr.me-central-1.amazonaws.com/talentfairs/web:8.0.0"

@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "TalentFairs",
+    "slug": "talentfairs",
+    "scheme": "tf",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0b1020"
+      }
+    }
+  }
+}

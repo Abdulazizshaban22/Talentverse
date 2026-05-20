@@ -1,0 +1,81 @@
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: talentverse
+    ports: ["5432:5432"]
+    volumes: [dbdata:/var/lib/postgresql/data]
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0
+    command: ["start-dev"]
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://db:5432/talentverse
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: postgres
+    ports: ["8081:8080"]
+    depends_on: [db]
+
+  api-gateway:
+    build: ./services/api-gateway
+    environment:
+      PORT: 8000
+      KEYCLOAK_JWKS_URL: http://keycloak:8080/realms/talentverse/protocol/openid-connect/certs
+      KEYCLOAK_ISSUER: http://keycloak:8080/realms/talentverse
+      KEYCLOAK_TOKEN_URL: http://keycloak:8080/realms/talentverse/protocol/openid-connect/token
+      KEYCLOAK_AUDIENCE: api-gateway
+      KEYCLOAK_CLIENT_ID: api-gateway
+      KEYCLOAK_CLIENT_SECRET: changeme
+      DATABASE_URL: postgres://postgres:postgres@db:5432/talentverse
+      AUTHZ_MODE: UMA
+    ports: ["8000:8000"]
+    depends_on: [keycloak, db]
+
+  ingestion-edu:
+    build: ./services/ingestion-edu
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/talentverse
+      INGESTION_API_KEY: changeme
+    ports: ["8060:8060"]
+    command: ["uvicorn","services.ingestion_edu.src.main:app","--host","0.0.0.0","--port","8060"]
+    depends_on: [db]
+
+  ingestion-sports:
+    build: ./services/ingestion-sports
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/talentverse
+      INGESTION_API_KEY: changeme
+    ports: ["8061:8061"]
+    command: ["uvicorn","services.ingestion_sports.src.main:app","--host","0.0.0.0","--port","8061"]
+    depends_on: [db]
+
+  ingestion-hr:
+    build: ./services/ingestion-hr
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/talentverse
+      INGESTION_API_KEY: changeme
+      PORT: 8062
+    ports: ["8062:8062"]
+    command: ["npm","run","start:dev"]
+    depends_on: [db]
+
+  govdash:
+    build: ./apps/govdash
+    environment:
+      API_BASE: http://localhost:8000
+    ports: ["3003:3003"]
+    command: ["npm","run","dev"]
+
+  mobile-pwa:
+    build: ./apps/mobile
+    ports: ["3004:3004"]
+    command: ["npm","run","dev"]
+
+volumes:
+  dbdata:

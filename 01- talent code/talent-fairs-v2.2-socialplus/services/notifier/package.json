@@ -1,0 +1,14 @@
+{
+  "name": "@talent/notifier",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "undici": "^6.19.8",
+    "fastify": "^4.27.0"
+  }
+}

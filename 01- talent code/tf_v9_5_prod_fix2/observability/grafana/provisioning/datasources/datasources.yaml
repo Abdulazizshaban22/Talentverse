@@ -1,0 +1,11 @@
+
+apiVersion: 1
+datasources:
+  - name: OpenSearch
+    type: grafana-opensearch-datasource
+    access: proxy
+    jsonData:
+      database: "[tf_*]"
+      flavor: "opensearch"
+      timeField: "@timestamp"
+      version: "2.13.0"

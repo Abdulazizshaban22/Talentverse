@@ -1,0 +1,3 @@
+أضف في apps/api/src/main.ts:
+  import { loyaltyRouter } from './loyalty_points.js'
+  app.use('/loyalty', loyaltyRouter)
